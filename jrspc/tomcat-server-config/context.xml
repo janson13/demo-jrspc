@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this configuration runs on server -->
+
+
+<Context antiResourceLocking="false" privileged="true" reloadable="true" crossContext="true"  path="/jrspc">
+</Context> 

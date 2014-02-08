@@ -1,0 +1,21 @@
+<Server port="8005" shutdown="SHUTDOWN">
+	<Service name="Catalina">
+		<Connector port="80" compression="on" maxThreads="150"
+			minSpareThreads="25" enableLookups="false" acceptCount="100"
+			redirectPort="443" URIEncoding="UTF-8" connectionTimeout="20000"
+			disableUploadTimeout="true" />
+
+
+		<Connector port="443" protocol="HTTP/1.1" SSLEnabled="true"
+			compression="on" maxThreads="150" scheme="https" secure="true"
+			keystorePass="111111" keystoreFile="c:\DevStudio\apache-tomcat-7.0.41\.keystore"
+			clientAuth="false" sslProtocol="TLS" />
+
+		<Engine name="Catalina" defaultHost="localhost">
+			<Host name="localhost" appBase="C:\DevStudio\projects\jrspc\target" 
+				unpackWARs="true" autoDeploy="true">
+
+			</Host>
+		</Engine>
+	</Service>
+</Server>
