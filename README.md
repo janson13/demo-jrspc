@@ -10,8 +10,7 @@ Demo application of "Json Remote Service Procedure Call" - JRSPC
 
 Статья на Хабре:
 
-<a href="http://habrahabr.ru/users/metalfire/topics/"
->Простой вызов удалённых сервисных методов в одностраничных приложениях</a>
+<a href="http://habrahabr.ru/users/metalfire/topics/">Простой вызов удалённых сервисных методов в одностраничных приложениях</a>
 
 <a href="http://94.127.68.13/jrspc/demo/application.html">Демо-приложение</a>
 
