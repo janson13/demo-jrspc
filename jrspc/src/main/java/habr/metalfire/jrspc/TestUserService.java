@@ -41,8 +41,7 @@ public class TestUserService extends AbstractService{
          if(!user.getPassword().equals(params.optString("password"))){ throw new RuntimeException(error);} 
          session.setAttribute("user", user);
          return user;
-    }  
-    
+    }     
     
     @Secured("User") 
     @Remote
@@ -57,8 +56,7 @@ public class TestUserService extends AbstractService{
         User user = getUser();
         user.setCity(city);                
         userManager.updateUser(user);
-    }       
-    
+    }           
  
     @Remote
     public User getSessionUser(JSONObject params){           
@@ -66,8 +64,6 @@ public class TestUserService extends AbstractService{
            return (User) session.getAttribute("user");
         }catch(Throwable th){log.debug("in checkUser: "+th);}
         return null;
-    }   
-    
-    
+    }    
     
 }

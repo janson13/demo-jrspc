@@ -29,8 +29,7 @@ public class TestAdminService extends AbstractService{
         user.setRole(role); 
         userManager.updateUser(user);
         return "role "+role+" granted to user "+userId;        
-    } 
-    
+    }     
     
     @Secured("Admin")   
     @Remote

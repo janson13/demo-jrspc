@@ -12,7 +12,7 @@
 			clientAuth="false" sslProtocol="TLS" />
 
 		<Engine name="Catalina" defaultHost="localhost">
-			<Host name="localhost" appBase="C:\DevStudio\projects\jrspc\target" 
+			<Host name="localhost" appBase="e:\repo\jrspc\jrspc\target" 
 				unpackWARs="true" autoDeploy="true">
 
 			</Host>

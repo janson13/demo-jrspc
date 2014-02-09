@@ -17,7 +17,6 @@ public abstract class AbstractService {
      
     public User getUser() {          
         return user;
-    }
-    
+    }  
     
 }

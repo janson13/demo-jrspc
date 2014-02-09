@@ -2,7 +2,6 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>JRSPC Demo application</title>
 <link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet">
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
 <script src="ajax-connector.js"></script>
 <script src="user-controller.js"></script>
@@ -12,7 +11,7 @@
 <h1 title="JSON Remote Service Procedure Call" style="cursor: help;">
 JRSPC Demo application </h1></td><td style="padding-left: 120px;" valign="middle">
      <a href="aga">related article on habrahabr.ru</a></td></tr></table>
-<div  x-ng-controller="userPanelController">
+<div  x-ng-controller="userController">
 <pre>
 
  User:
@@ -47,17 +46,10 @@ JRSPC Demo application </h1></td><td style="padding-left: 120px;" valign="middle
              type="button" x-ng-click="removeUser($event.target)" class="btn btn-warning"/>                          
                
 </pre>
-
-<div class="alert alert-{{error == '' ? 'info':'warning'}}">{{error == '' ? result : error}}</div>
- 
-              
+<div class="alert alert-{{error == '' ? 'info':'warning'}}">{{error == '' ? result : error}}</div>              
       <input value="get users count" 
-             type="button" x-ng-click="getUsersCount($event.target)" class="btn"/>  
- 
+             type="button" x-ng-click="getUsersCount($event.target)" class="btn"/>   
 </div>
-
-
-
 </body></html>
 
 

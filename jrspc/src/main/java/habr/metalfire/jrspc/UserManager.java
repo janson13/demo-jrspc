@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserManager {
-    
-    
+        
     private static HashMap<Long, User> idUsersMap = new HashMap<Long, User>();
     
     private static HashMap<String, Long> loginIdMap = new HashMap<String, Long>();
@@ -24,8 +23,7 @@ public class UserManager {
         Long id = loginIdMap.get(login);
         if(id == null){return null;}
         return  findById(id);
-    }
-  
+    }  
     
     public boolean saveUser(User user) {
         user.setId(nextId.addAndGet(1));
@@ -33,7 +31,6 @@ public class UserManager {
         loginIdMap.put(user.getLogin(), user.getId());
         return false;
     }
-
 
     public void updateUser(User user) {
        idUsersMap.put(user.getId(), user);       
@@ -43,10 +40,9 @@ public class UserManager {
        idUsersMap.remove(user.getId());       
        loginIdMap.remove(user.getLogin());           
     }
-    
-    
+        
     public Integer getUsersCount() {
        return idUsersMap.size();  
     }    
-
+    
 }
