@@ -1,12 +1,10 @@
 
-var userController = {};
 
-function userPanelController($scope){
+
+function userController($scope){
 		
-	var self = $scope;
-	
-	userController = self; // for outer references, like export
-		
+	var self = $scope;	
+
 	self.user = {login: "", password: ""};
 	
 	self.error = "";
@@ -24,7 +22,7 @@ function userPanelController($scope){
 			self.user = user;
 			self.loged = true;
 			self.$digest();			
-		}, function(){/**on errror do nothing*/}, control);		
+		}, self.onError, control);		
 	}	
 	
 	
