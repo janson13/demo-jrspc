@@ -18,12 +18,19 @@ var Server = {url: "http://"+ document.location.host +"/jrspc/ajax-request"};
 		}
 	}
 	
+	function isArray(object){return  (typeof(object)=="object") && object.length;}
+	
 	Server.call = function(service, method, params, successCallback, errorCallback, control) {
+		
+		if(!params){params = {};}
+		if(isArray(params)){params = {"__arguments__": params};}
+		
 		var data = {
 			service : service,
 			method : method,
-			params : params ? params : {}
+			params : params
 		};
+		
 		if (control) {control.disabled = true;}
 		var requestData = JSON.stringify(data);
 		var request = getXMLHttpRequest();
