@@ -1,7 +1,11 @@
 package habr.metalfire.jrspc;
 
-public class User{    
+import java.io.Serializable;
+
+public class User implements Serializable{    
         
+    private static final long serialVersionUID = 1L;
+    
     public static enum Role { User, Admin, Supervisor }
     
     private Long id;

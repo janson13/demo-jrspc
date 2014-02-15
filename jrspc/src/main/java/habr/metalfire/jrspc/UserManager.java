@@ -1,5 +1,6 @@
 package habr.metalfire.jrspc;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -7,15 +8,19 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class UserManager {
+public class UserManager implements Serializable{
         
-    private static HashMap<Long, User> idUsersMap = new HashMap<Long, User>();
+    private static final long serialVersionUID = 1L;
     
-    private static HashMap<String, Long> loginIdMap = new HashMap<String, Long>();
+    
+    private HashMap<Long, User> idUsersMap = new HashMap<Long, User>();
+    
+    private HashMap<String, Long> loginIdMap = new HashMap<String, Long>();
       
     private AtomicLong nextId = new AtomicLong(0);
         
-    public User findById(Long id) {       
+    public User findById(Long id) {    
+        if(id == null){throw new RuntimeException("UserManager: in findById: id == null!");}
         return idUsersMap.get(id);
     }
  

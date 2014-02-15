@@ -13,7 +13,7 @@
 
 		<Engine name="Catalina" defaultHost="localhost">
 			<Host name="localhost" appBase="e:\repo\jrspc\jrspc\target" 
-				unpackWARs="true" autoDeploy="true">
+				unpackWARs="false" autoDeploy="false">
 
 			</Host>
 		</Engine>

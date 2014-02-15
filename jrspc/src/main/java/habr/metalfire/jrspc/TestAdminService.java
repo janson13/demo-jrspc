@@ -1,5 +1,7 @@
 package habr.metalfire.jrspc;
 
+import java.util.List;
+
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class TestAdminService extends AbstractService{
 
+    private static final long serialVersionUID = 1L;
+    
     @Autowired
     UserManager userManager;    
                
@@ -18,18 +22,22 @@ public class TestAdminService extends AbstractService{
         if(user == null){throw new RuntimeException("User with id "+userId+" not found!");}
         return user;        
     }
+    
+
    
+    
     @Secured("Admin")   
     @Remote
-    public String grantRole(JSONObject params){    
-        Long userId = params.optLong("userId");  
-        User user = userManager.findById(userId);
-        String role = params.optString("role");             
-        if(user.getId().equals(getUser().getId())){throw new RuntimeException("Admin role cannot be revoked!");}
-        user.setRole(role); 
-        userManager.updateUser(user);
+    public String grantRole(Long userId, String role){    
+        User clientUser = userManager.findById(userId);   
+        if(clientUser == null){throw new RuntimeException("User with id: "+userId+" not found!");}
+        User serverUser = getUser();        
+        if(clientUser.getId().equals(serverUser.getId())){throw new RuntimeException("You cannot change own role!");}
+        clientUser.setRole(role); 
+        userManager.updateUser(clientUser);
         return "role "+role+" granted to user "+userId;        
-    }     
+    }         
+    
     
     @Secured("Admin")   
     @Remote
@@ -41,7 +49,7 @@ public class TestAdminService extends AbstractService{
     }     
     
     @Remote
-    public Integer getUsersCount(JSONObject params){        
+    public Integer getUsersCount(){        
         return userManager.getUsersCount();
     }        
 }

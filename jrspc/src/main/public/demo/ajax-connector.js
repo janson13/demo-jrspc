@@ -2,6 +2,8 @@
 
 var Server = {url: "http://"+ document.location.host +"/jrspc/ajax-request"};
 
+
+
 (function() {
 	
 	function getXMLHttpRequest() {
@@ -18,12 +20,14 @@ var Server = {url: "http://"+ document.location.host +"/jrspc/ajax-request"};
 		}
 	}
 	
-	function isArray(object){return  (typeof(object)=="object") && object.length;}
+	
+	function isArray(object){try{return  JSON.stringify(object).substring(0,1) == "[";}catch(any){return false;}}
+	
 	
 	Server.call = function(service, method, params, successCallback, errorCallback, control) {
 		
-		if(!params){params = {};}
-		if(isArray(params)){params = {"__arguments__": params};}
+		if(!params){params = [];}
+		if(!isArray(params)){params = [params];}
 		
 		var data = {
 			service : service,
@@ -32,7 +36,7 @@ var Server = {url: "http://"+ document.location.host +"/jrspc/ajax-request"};
 		};
 		
 		if (control) {control.disabled = true;}
-		var requestData = JSON.stringify(data);
+		
 		var request = getXMLHttpRequest();
 
 		request.onreadystatechange = function() {			
@@ -43,15 +47,14 @@ var Server = {url: "http://"+ document.location.host +"/jrspc/ajax-request"};
 				return;
 			}	
 			if (!(request.readyState == 4 && request.status == 200)) {return;}			
-			//log("request.responseText="+request.responseText);
+			log("responseText="+request.responseText);
 			try {
 				var response = JSON.parse(request.responseText);
 				if (response.error) {
 					processError(response.error, errorCallback);
 				} else {
 					if (successCallback) {
-						try {
-							//log("response="+JSON.stringify(response));							
+						try {						
 							successCallback(response.result);
 						} catch (ex) {
 							error("in ajax successCallback: " + ex + ", data=" + data);
@@ -63,8 +66,11 @@ var Server = {url: "http://"+ document.location.host +"/jrspc/ajax-request"};
 			}			
 			if (control) {control.disabled = false;}
 		}
+		var requestText = JSON.stringify(data);
+		//
+		log("requestText="+requestText);
 		request.open("POST", Server.url, true);
-		request.send(requestData);
+		request.send(requestText);
 	}
 	
 	function processError(error, errorCallback){

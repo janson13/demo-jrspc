@@ -37,9 +37,9 @@ function userController($scope){
 		}, self.onError, control);		
 	}
 	
-	self.logIn = function(control){
+	self.logIn = function(control){//[self.user] , self.user.password, true
 		self.loginControl = control;
-		Server.call("testUserService", "logIn", self.user, function(user){
+		Server.call("testUserService", "logIn", [self.user.login, self.user.password], function(user){
 			self.user = user;
 			self.loged = true;
 			self.onSuccess("you loged in with role: "+user.role);	
@@ -68,7 +68,7 @@ function userController($scope){
 	}	
 	
 	self.changeCity = function(control){
-		Server.call("testUserService", "changeCity", {city: self.user.city}, function(){
+		Server.call("testUserService", "changeCity", self.user.city, function(){
 			self.onSuccess("users city changed to: "+self.user.city);			
 		}, self.onError, control);			
 	}		
@@ -76,15 +76,100 @@ function userController($scope){
 	
 	/** admin methods */
 	
-	self.grantRole = function(control){		
-		Server.call("testAdminService", "grantRole", {role: self.role, userId: self.userId}, function(result){
+	self.grantRole = function(control){		//
+		Server.call("testAdminService", "grantRole", 
+			[self.userId, self.role, true, [{id:2, login:"qwer"},{id:3, login:"333"} ], {id:4, login:"555"}], function(result){
      		self.onSuccess(result);		
 		}, self.onError, control);		
 	}	
 		
 	self.removeUser = function(control){
 		Server.call("testAdminService", "removeUser", {userId: self.userId}, self.onSuccess, self.onError, control);		
+	}	
+	
+	/** test methods */
+	
+	
+	self.testCallNotExistedService = function(control){		
+		Server.call("notExistedService", "anyMethod", null, 
+				alert, alert, control);		
+	}	
+	
+	
+	self.testCallPublicMethod = function(control){		
+		Server.call("testCallService", "testPublicMethod", null,
+				alert, alert, control);		
+	}	
+	
+	
+	self.testCallUserMethod = function(control){		
+		Server.call("testCallService", "testUserMethod", null, 
+				alert, alert, control);		
+	}	
+	
+	self.testCallAdminMethod = function(control){		
+		Server.call("testCallService", "testAdminMethod", null, 
+				alert, alert, control);		
 	}		
+		
+	
+	self.testArrayArguments = function(control){		
+		Server.call("testCallService", "testArrayArguments", 
+			[self.userId, self.role, true, [{id:1, login:"111"},
+			 {id:2, login:"222"} ], {id:3, login:"333"}],
+			 alert, alert, control);		
+	}	
+	
+	self.testObjectArgument = function(control){		
+		Server.call("testCallService", "testObjectArgument", 
+			{id:2, login:"222"}, alert, alert, control);		
+	}	
+	
+	self.testJSONObjectArgument = function(control){		
+		Server.call("testCallService", "testJSONObjectArgument", 
+			{id:2, login:"222"}, alert, alert, control);		
+	}		
+	
+	self.testPrimitiveArgument = function(control){		
+		Server.call("testCallService", "testPrimitiveArgument", "222", 
+				alert, alert, control);		
+	}
+	
+	self.testPrimitivesListArgument = function(control){		
+		Server.call("testCallService", "testPrimitivesListArgument", 
+			[111, 222, 333], alert, alert, control);		
+	}	
+	
+	self.testPrimitivesArrayArgument = function(control){		
+		Server.call("testCallService", "testPrimitivesArrayArgument", 
+			[111, 222, 333], alert, alert, control);		
+	}	
+	
+	self.testObjectsListArgument = function(control){		
+		Server.call("testCallService", "testObjectsListArgument", 
+			[{id:1, login:"111"}, {id:2, login:"222"}], 
+			alert, alert, control);		
+	}	
+	
+	self.testObjectsArrayArgument = function(control){		
+		Server.call("testCallService", "testObjectsArrayArgument", 
+			[{id:1, login:"111"}, {id:2, login:"222"}], 
+			alert, alert, control);		
+	}
+	
+	self.testObjectsArguments = function(control){		
+		Server.call("testCallService", "testObjectsArguments", 
+			[{id:1, login:"111"}, {id:2, login:"222"}], 
+			alert, alert, control);		
+	}		
+	self.getTestCode = function(functionName){
+		return ""+eval(functionName);
+	}
+	
+	
+	
+	
+	
 	
 	/** common callbacks */
 	
@@ -98,6 +183,7 @@ function userController($scope){
 		self.error = "";
 		self.$digest();		
 	}		
+	
 	
 	/** initialization */
 	self.trySetSessionUser();

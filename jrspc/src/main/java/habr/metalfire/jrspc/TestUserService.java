@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("session")
-public class TestUserService extends AbstractService{
+public class TestUserService extends AbstractService {
+
+    private static final long serialVersionUID = 1L;
 
     @Autowired
     UserManager userManager;    
@@ -19,8 +21,8 @@ public class TestUserService extends AbstractService{
     private HttpSession session;
                
     @Remote
-    public Long registerUser(JSONObject userJson){        
-        User user = (User) JSONObject.toBean(userJson, User.class);        
+    public Long registerUser(User user){               
+        //log.debug("registerUser: user="+JSONObject.fromObject(user));
         if(userManager.findByLogin(user.getLogin()) != null){
           throw new RuntimeException("User with login "+user.getLogin()+" already registered!");
         }           
@@ -31,35 +33,42 @@ public class TestUserService extends AbstractService{
         } 
         userManager.saveUser(user); 
         return user.getId();
-    }    
+    }          
+
     
     @Remote
-    public User logIn(JSONObject params){      
+    public User logIn(String login, String password){  
+         //User remoteUser
+         //String login = remoteUser.getLogin(), password  = remoteUser.getPassword();         
+        //
+        log.debug("logIn: login="+login+", password="+password);
          String error = "Unknown combination of login and password!";
-         User user = userManager.findByLogin(params.optString("login"));
+         User user = userManager.findByLogin(login);
+          log.debug("logIn: user="+JSONObject.fromObject(user));
          if(user == null){ throw new RuntimeException(error);}
-         if(!user.getPassword().equals(params.optString("password"))){ throw new RuntimeException(error);} 
+         if(!user.getPassword().equals(password)){ throw new RuntimeException(error);} 
          session.setAttribute("user", user);
+         
          return user;
     }     
     
+
     @Secured("User") 
     @Remote
-    public void logOut(JSONObject params){       
+    public void logOut(){       
          session.removeAttribute("user");
     }           
     
     @Secured("User")   
     @Remote
-    public void changeCity(JSONObject params){   
-        String city = params.optString("city");                
+    public void changeCity(String city){                  
         User user = getUser();
         user.setCity(city);                
         userManager.updateUser(user);
     }           
  
     @Remote
-    public User getSessionUser(JSONObject params){           
+    public User getSessionUser(){           
         try{
            return (User) session.getAttribute("user");
         }catch(Throwable th){log.debug("in checkUser: "+th);}
