@@ -77,9 +77,28 @@ public class TestCallService extends AbstractService{
           return "passed ObjectsArray: "+ new JSONObject().accumulate("users", users);        
     }   
     
+    
     @Remote
     public String testObjectsArguments(User  user1, User  user2){    
           return "passed ObjectsArguments: "+ 
             new JSONObject().accumulate("user1", user1).accumulate("user2", user2);        
-    }            
+    }        
+        
+    
+    @Remote
+    public void testVoidReturn(){             
+    }     
+    
+    @Remote
+    public int testPrimitiveReturn(){    
+           return 42;
+    }         
+    
+    @Remote
+    public User testObjectReturn(){   
+        User user = new User();
+        user.setCity("Nsk");
+        return user;
+    }         
+    
 }

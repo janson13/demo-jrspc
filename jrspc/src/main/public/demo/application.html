@@ -180,6 +180,34 @@ JRSPC Demo application </h1></td><td style="padding-left: 120px;" valign="middle
     }      
   </pre></td></tr>
   
+  <tr><th colspan="3">test return trype</th></tr>
+    
+  
+  <tr><td><input value="test rerturn void" type="button" x-ng-click="testVoidReturn($event.target)" 
+  class="btn"/> </td> <td><pre>{{getTestCode("self.testVoidReturn")}}</pre></td> <td><pre>
+    @Remote
+    public void testVoidReturn(){             
+    } 
+  </pre></td></tr>
+  
+  <tr><td><input value="test rerturn primitive" type="button" x-ng-click="testPrimitiveReturn($event.target)" 
+  class="btn"/> </td> <td><pre>{{getTestCode("self.testPrimitiveReturn")}}</pre></td> <td><pre>
+    @Remote
+    public int testPrimitiveReturn(){    
+           return 42;
+    }     
+  </pre></td></tr>
+
+  <tr><td><input value="test rerturn object" type="button" x-ng-click="testObjectReturn($event.target)" 
+  class="btn"/> </td> <td><pre>{{getTestCode("self.testObjectReturn")}}</pre></td> <td><pre>
+    @Remote
+    public User testObjectReturn(){   
+        User user = new User();
+        user.setCity("Nsk");
+        return user;
+    }   
+  </pre></td></tr>
+  
  </table>
  
  

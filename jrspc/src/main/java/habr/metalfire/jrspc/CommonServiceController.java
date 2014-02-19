@@ -34,7 +34,7 @@ public class CommonServiceController {
     
 
     
-    @RequestMapping(value = "/ajax-request", method = RequestMethod.POST)
+    @RequestMapping(value = "/jrspc-request", method = RequestMethod.POST)
     @ResponseBody
     private String processAjaxRequest(@RequestBody String requestJson) {
         //

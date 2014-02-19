@@ -1,6 +1,6 @@
 /** use if not ws_connector.js applyed only! */
 
-var Server = {url: "http://"+ document.location.host +"/jrspc/ajax-request"};
+var Server = {url: "http://"+ document.location.host +"/jrspc/jrspc-request"};
 
 
 

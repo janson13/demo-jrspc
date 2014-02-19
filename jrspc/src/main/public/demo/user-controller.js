@@ -161,7 +161,23 @@ function userController($scope){
 		Server.call("testCallService", "testObjectsArguments", 
 			[{id:1, login:"111"}, {id:2, login:"222"}], 
 			alert, alert, control);		
+	}	
+	
+	self.testVoidReturn = function(control){		
+		Server.call("testCallService", "testVoidReturn",null, 
+			function(){alert("void returned");}, alert, control);		
 	}		
+	
+	self.testPrimitiveReturn = function(control){		
+		Server.call("testCallService", "testPrimitiveReturn",null, 
+			alert, alert, control);		
+	}		
+	
+	self.testObjectReturn = function(control){		
+		Server.call("testCallService", "testObjectReturn", null, 
+			function(user){alert("user.city="+user.city);}, alert, control);		
+	}			
+	
 	self.getTestCode = function(functionName){
 		return ""+eval(functionName);
 	}
